@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">HorariDam</string>
+    <string name="name_required">El teu nom es obligatori.</string>
+
+    <string-array name="curs">
+        <item>2016-2017</item>
+    </string-array>
+
+    <string-array name="grup">
+        <item>A1</item>
+        <item>A2</item>
+    </string-array>
+
+    <string-array name="cicle">
+        <item>DAM</item>
+    </string-array>
+</resources>
