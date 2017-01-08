@@ -16,26 +16,42 @@ import android.widget.Toast;
 import net.blusoft.horaridam.R;
 import net.blusoft.horaridam.model.BaseDades;
 
-public class Preferences extends AppCompatActivity implements View.OnClickListener {
+public class PreferencesActivity extends AppCompatActivity implements View.OnClickListener {
 
     SharedPreferences prefs;
-    Spinner curs;
-    Spinner grup;
-    Spinner cicle;
+    Spinner curs,grup,cicle,tema;
     EditText nom;
     BaseDades db;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        prefs = getSharedPreferences("MisPreferencias", this.MODE_PRIVATE);
+        //Define the APP theme.
+        switch(prefs.getInt("tema",0)){
+            case 0:
+                setTheme(android.R.style.Theme_Material_Light_NoActionBar);
+                break;
+            case 1:
+                setTheme(android.R.style.Theme_Material_NoActionBar);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         System.out.println("Inicializando  DB");
-        db = new BaseDades(this, "horariosDAM", null, 4);
+        db = new BaseDades(this, "horariosDAM", null, BaseDades.VERSIO_DB);
         db.getWritableDatabase();
-        prefs = getSharedPreferences("MisPreferencias", this.MODE_PRIVATE);
-        if (prefs.getString("nom", "") != "") {
+        boolean mostrarPreferencias=false;
+        if(getIntent().getExtras()!=null) {
+            Bundle extras = getIntent().getExtras();
+            if(extras.getString("mostrarPreferencies") != null){
+                mostrarPreferencias=true;
+            }
+        }
+        if (!prefs.getString("nom", "").equals("") && mostrarPreferencias) {
+            System.out.println("Preferencias ya guardadas, redirigimos a calendario");
             goToCalendar();
         } else {
+            System.out.println("Preferencias no guardadas, a la espera de introduccion por parte de usuario.");
             refrescarPantalla();
         }
     }
@@ -46,9 +62,9 @@ public class Preferences extends AppCompatActivity implements View.OnClickListen
      * The results of the destination activity should be checked with onActivityResult method.
      */
     public void goToCalendar() {
-        int REQUEST_CODE=100;
-        Intent desti = new Intent(Preferences.this, Calendari.class);
-        startActivityForResult(desti, REQUEST_CODE);
+        Intent desti = new Intent(PreferencesActivity.this, CalendariActivity.class);
+        startActivity(desti);
+        finish();
     }
 
     /**
@@ -59,6 +75,7 @@ public class Preferences extends AppCompatActivity implements View.OnClickListen
         grup = (Spinner) findViewById(R.id.spinnerGrup);
         cicle = (Spinner) findViewById(R.id.spinnerCicle);
         nom = (EditText) findViewById(R.id.etNom);
+        tema = (Spinner) findViewById(R.id.spinnerTema);
         Button botoGuardar = (Button) findViewById(R.id.buttonGuardar);
         botoGuardar.setOnClickListener(this);
 
@@ -71,49 +88,35 @@ public class Preferences extends AppCompatActivity implements View.OnClickListen
         ArrayAdapter<CharSequence> adapterGrup = ArrayAdapter.createFromResource(this, R.array.grup, android.R.layout.simple_spinner_item);
         grup.setAdapter(adapterGrup);
 
+        ArrayAdapter<CharSequence> adapterTema = ArrayAdapter.createFromResource(this, R.array.tema, android.R.layout.simple_spinner_item);
+        tema.setAdapter(adapterTema);
+
         //Fill the options there is a SharedPreference File, otherwise, put some default values.
         curs.setSelection(prefs.getInt("curs", 0));
         cicle.setSelection(prefs.getInt("cicle", 0));
         grup.setSelection(prefs.getInt("grup", 0));
         nom.setText(prefs.getString("nom", ""));
+        tema.setSelection(prefs.getInt("tema",0));
     }
 
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonGuardar) {
+            System.out.println("pulsado el boton guardar");
             if (nom.getText().toString().equals("")) {
+                System.out.println("No se ha introducido un nombre valido");
                 Toast.makeText(this, R.string.name_required, Toast.LENGTH_LONG).show();
             } else {
+                System.out.println("Guardamos las preferencias");
                 SharedPreferences.Editor editor = prefs.edit();
-
                 ///  getResources().getStringArray(R.array.curs)[0]
                 editor.putString("nom", nom.getText().toString());
                 editor.putInt("curs", curs.getSelectedItemPosition());
                 editor.putInt("cicle", cicle.getSelectedItemPosition());
                 editor.putInt("grup", grup.getSelectedItemPosition());
-                editor.commit();
+                editor.putInt("tema", tema.getSelectedItemPosition());
+                editor.apply();
                 goToCalendar();
-            }
-        }
-    }
-
-    /**
-     *
-     * @param requestCode The request code of the intent launched with StartActivityFoResult
-     * @param resultCode The result of the destination activity.
-     * @param data
-     */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            if (resultCode == Activity.RESULT_OK) {
-                // Retornem ok quant volem mostrar les preferencies.
-                refrescarPantalla();
-            } else {
-                //si s'ha retornat de l'activity amb qualsevol altre valor, sortim de l'app
-                //Aixo significa que la tecla de tornar a la segona activity finalitzara l'aplicació.
-                finish();
             }
         }
     }

@@ -1,11 +1,26 @@
 <resources>
     <string name="app_name">HorariDam</string>
     <string name="name_required">El teu nom es obligatori.</string>
+    <string name="hola_nom">Hola %1$s</string>
+    <string name="ara_toca_assignatura">Ara toca %1$s</string>
+    <string name="no_tens_classe">De moment no tens cap classe.</string>
+    <string name="fins_les_xxxxx">Fins les %1$s</string>
+    <string name="amb_el_professor">Professor/a %1$s</string>
+    <string name="tema">Tema</string>
+    <string name="nom">Nom</string>
+    <string name="introdueix_el_teu_nom">Introdueix el teu nom</string>
+    <string name="selecciona_el_teu_curs">Selecciona el teu curs</string>
+    <string name="selecciona_el_cicle">Selecciona el cicle</string>
+    <string name="selecciona_el_teu_grup">Selecciona el teu grup</string>
+    <string name="textview">TextView</string>
 
     <string-array name="curs">
-        <item>2016-2017</item>
+        <item>2016–2017</item>
     </string-array>
-
+    <string-array name="tema">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
     <string-array name="grup">
         <item>A1</item>
         <item>A2</item>

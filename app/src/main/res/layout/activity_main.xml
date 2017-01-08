@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="net.blusoft.horaridam.controlers.Preferences">
+    tools:context="net.blusoft.horaridam.controlers.PreferencesActivity">
 
     <LinearLayout
         android:orientation="vertical"
@@ -17,7 +17,7 @@
         android:weightSum="1">
 
         <TextView
-            android:text="Nom"
+            android:text="@string/nom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvNom"
@@ -29,27 +29,23 @@
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/etNom"
-            android:hint="Introdueix el teu nom" />
+            android:hint="@string/introdueix_el_teu_nom" />
 
         <TextView
-            android:text="Selecciona el teu curs"
+            android:text="@string/selecciona_el_teu_curs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/tvCurs"
             android:textSize="30sp" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvCurs"
-            android:layout_centerHorizontal="true"
             android:id="@+id/spinnerCurs"
             android:layout_weight="0.20" />
 
         <TextView
-            android:text="Selecciona el cicle"
+            android:text="@string/selecciona_el_cicle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tvCicle"
@@ -62,28 +58,34 @@
             android:layout_weight="0.20" />
 
         <TextView
-            android:text="Selecciona el teu grup"
+            android:text="@string/selecciona_el_teu_grup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerCurs"
-            android:layout_centerHorizontal="true"
             android:id="@+id/tvGrup"
             android:textSize="30sp" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerCurs"
-            android:layout_centerHorizontal="true"
             android:id="@+id/spinnerGrup"
             android:layout_weight="0.20" />
+
+        <TextView
+            android:text="@string/tema"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvTema"
+            android:textSize="30sp"/>
+
+        <Spinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinnerTema" />
 
         <Button
             android:text="Guardar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:id="@+id/buttonGuardar"
             android:textSize="30sp" />
     </LinearLayout>
