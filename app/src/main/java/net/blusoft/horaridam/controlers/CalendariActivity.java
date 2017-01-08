@@ -74,6 +74,7 @@ public class CalendariActivity extends AppCompatActivity{
                 else{
                     tv2.setText(getString(R.string.ara_toca_assignatura, assignatura.getNomModul()));
                     progressBar.setVisibility(View.VISIBLE);
+                    tv4.setVisibility(View.VISIBLE);
                     if(assignatura.getNomModul().equals("Pati")){
                         tv3.setVisibility(View.INVISIBLE);
                     }
