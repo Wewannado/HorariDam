@@ -26,7 +26,7 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prefs = getSharedPreferences("MisPreferencias", this.MODE_PRIVATE);
+        prefs = getSharedPreferences("MisPreferencias", MODE_PRIVATE);
         //Define the APP theme.
         switch(prefs.getInt("tema",0)){
             case 0:
@@ -44,7 +44,7 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
         if(getIntent().getExtras()!=null) {
             Bundle extras = getIntent().getExtras();
             System.out.println("Get Extras");
-            if(extras.getBoolean("mostrarPreferencies")==true){
+            if(extras.getBoolean("mostrarPreferencies")){
                 System.out.println("Mostrar preferencies true");
                 mostrarPreferencias=true;
             }
@@ -105,7 +105,7 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
     /**
      * Override of the onClick Method that handles the click of the save button.
      * When clicked, saves the preferences and sends the user to the second activity.
-     * @param view
+     * @param view The View that we're listenning
      */
     @Override
     public void onClick(View view) {
