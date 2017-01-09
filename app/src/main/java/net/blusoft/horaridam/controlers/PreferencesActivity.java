@@ -43,11 +43,14 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
         boolean mostrarPreferencias=false;
         if(getIntent().getExtras()!=null) {
             Bundle extras = getIntent().getExtras();
-            if(extras.getString("mostrarPreferencies") != null){
+            System.out.println("Get Extras");
+            if(extras.getBoolean("mostrarPreferencies")==true){
+                System.out.println("Mostrar preferencies true");
                 mostrarPreferencias=true;
             }
         }
-        if (!prefs.getString("nom", "").equals("") && mostrarPreferencias) {
+        System.out.println(mostrarPreferencias);
+        if (!prefs.getString("nom", "").equals("") && !mostrarPreferencias) {
             System.out.println("Preferencias ya guardadas, redirigimos a calendario");
             goToCalendar();
         } else {
@@ -99,6 +102,11 @@ public class PreferencesActivity extends AppCompatActivity implements View.OnCli
         tema.setSelection(prefs.getInt("tema",0));
     }
 
+    /**
+     * Override of the onClick Method that handles the click of the save button.
+     * When clicked, saves the preferences and sends the user to the second activity.
+     * @param view
+     */
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.buttonGuardar) {

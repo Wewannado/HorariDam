@@ -24,15 +24,15 @@ public class BaseDades extends SQLiteOpenHelper {
     private static final int idM020506 = 5;
     private static final int idM09 = 6;
     private static final int idM08 = 7;
-    private static final int DILLUNS = 1;
-    private static final int DIMARTS = 2;
-    private static final int DIMECRES = 3;
-    private static final int DIJOUS = 4;
-    private static final int DIVENDRES = 5;
+    private static final int DILLUNS = 2;
+    private static final int DIMARTS = 3;
+    private static final int DIMECRES = 4;
+    private static final int DIJOUS = 5;
+    private static final int DIVENDRES = 6;
     private static final int GRUP_A = 3;
     private static final int GRUP_A1 = 0;
     private static final int GRUP_A2 = 1;
-    public static final int VERSIO_DB=16;
+    public static final int VERSIO_DB=17;
 
 
 
@@ -150,6 +150,7 @@ public class BaseDades extends SQLiteOpenHelper {
         String sql= "SELECT codAsignatura, horaInicio,horaFin FROM horario " +
                 "WHERE (grup="+grup+" OR grup="+GRUP_A+") AND diaSetmana="+c.get(Calendar.DAY_OF_WEEK)+" AND '"+formatter.format(horaActual)+"' BETWEEN horaInicio AND horaFin";
         Cursor curs = bbdd.rawQuery(sql,null);
+        System.out.println(sql);
         if(curs.getCount()!=0) {
             curs.moveToFirst();
             String sql2 = "SELECT nomAssignatura,nomProfe FROM modulos WHERE codAsignatura=" + curs.getInt(0);
