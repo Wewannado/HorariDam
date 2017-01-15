@@ -150,6 +150,7 @@ public class BaseDades extends SQLiteOpenHelper {
         String sql= "SELECT codAsignatura, horaInicio,horaFin FROM horario " +
                 "WHERE (grup="+grup+" OR grup="+GRUP_A+") AND diaSetmana="+c.get(Calendar.DAY_OF_WEEK)+" AND '"+formatter.format(horaActual)+"' BETWEEN horaInicio AND horaFin";
         Cursor curs = bbdd.rawQuery(sql,null);
+        //TODO remove this debug sout in deploy APP
         System.out.println(sql);
         if(curs.getCount()!=0) {
             curs.moveToFirst();
@@ -168,7 +169,6 @@ public class BaseDades extends SQLiteOpenHelper {
             d.close();
         }
         curs.close();
-
         return res;
     }
 }
